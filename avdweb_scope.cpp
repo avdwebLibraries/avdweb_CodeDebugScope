@@ -13,6 +13,9 @@ of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Publ
 Version 1-1-2016
 Version 14-1-2016 sample0_us
 Version 10-2-2017 1, 2, 3, 4 channels
+Version 10-2-2017 sampleA sampleB sampleABC sampleABCD to avoid mistakes
+                  all unsigned int -> int
+                  added stop()
 
 start           ___|____________________________________|________
 
@@ -44,6 +47,10 @@ void Scope::start(byte _channels, int _preSamples, unsigned int _recordLenght)
   if(abs(_preSamples) <= recordLenght) preSamples = _preSamples; 
 }
 
+void Scope::stop()
+{ stopPtr = calcPtr(ptr+1);
+}
+
 void Scope::show() 
 { unsigned long stop_us = micros(); // to avoid delay, start with this
   unsigned long usPerDiv = samples > 1 ? (stop_us - sample0_us)/(samples-1) : 0; 
@@ -64,14 +71,14 @@ void Scope::show()
   stopPtr = 32767;  
 }
 
-void Scope::sample(int valueA) // 1 channel
+void Scope::sampleA(int valueA) // 1 channel
 { if(samplingOn)
   { ringBuffer.chA[ptr] = valueA;
     sampleControl();
   }
 }
 
-void Scope::sample(int valueA, int valueB) // 2 channels
+void Scope::sampleAB(int valueA, int valueB) // 2 channels
 { if(samplingOn)
   { ringBuffer.chAB[ptr][0] = valueA;
     ringBuffer.chAB[ptr][1] = valueB;
@@ -79,7 +86,7 @@ void Scope::sample(int valueA, int valueB) // 2 channels
   }
 }
 
-void Scope::sample(int valueA, int valueB, int valueC) // 3 channels
+void Scope::sampleABC(int valueA, int valueB, int valueC) // 3 channels
 { if(samplingOn)
   { ringBuffer.chABC[ptr][0] = valueA;
     ringBuffer.chABC[ptr][1] = valueB;
@@ -88,7 +95,7 @@ void Scope::sample(int valueA, int valueB, int valueC) // 3 channels
   }
 }
 
-void Scope::sample(int valueA, int valueB, int valueC, int valueD) // 4 channels
+void Scope::sampleABCD(int valueA, int valueB, int valueC, int valueD) // 4 channels
 { if(samplingOn)
   { ringBuffer.chABCD[ptr][0] = valueA;
     ringBuffer.chABCD[ptr][1] = valueB;
@@ -99,7 +106,7 @@ void Scope::sample(int valueA, int valueB, int valueC, int valueD) // 4 channels
 }
 
 void Scope::sampleControl()
-{ if(samples == 0) sample0_us = micros(); // doen werkt niet als er meerdere testen lopen 
+{ if(samples == 0) sample0_us = micros();  
   samples++;
   ptr = calcPtr(ptr+1); 
   if(ptr==stopPtr) show();
@@ -123,7 +130,7 @@ void Scope::testBuffer()
 { start(1);
   for(int i=0; i<25000; i++)
   { if(i==0) trigger(); 
-    sample(i);
+    sampleA(i);
   }  
 }
   

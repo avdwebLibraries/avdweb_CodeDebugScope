@@ -13,18 +13,22 @@ of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Publ
 
 #include <Arduino.h>
 
+#if defined(__arm__) 
 const unsigned int maxBytes = 2000; // SAMD21: max ~ 7000
-//const int maxBytes = 700;         // AVR: max ~ 780
+#else
+const int maxBytes = 700; // AVR: max ~ 780
+#endif
 
 class Scope
 {
 public:
   void start(byte _channels, int _preSamples=0, unsigned int _recordLenght=65535);
-  void sample(int valueA);
-  void sample(int valueA, int valueB);
-  void sample(int valueA, int valueB, int valueC);
-  void sample(int valueA, int valueB, int valueC, int valueD);
+  void sampleA(int valueA);
+  void sampleAB(int valueA, int valueB);
+  void sampleABC(int valueA, int valueB, int valueC);
+  void sampleABCD(int valueA, int valueB, int valueC, int valueD);
   void trigger();
+  void stop();
   void testBuffer();
    
 protected:
@@ -40,8 +44,7 @@ protected:
   unsigned long sample0_us;
   bool triggered, samplingOn; 
   byte channels; // 1, 2, 3, 4 channels
-  unsigned int recordLenght, ptr, samples, triggerPtr, stopPtr; 
-  int preSamples;
+  int recordLenght, preSamples, ptr, samples, triggerPtr, stopPtr;
 };
 
 #endif
