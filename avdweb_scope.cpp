@@ -16,6 +16,7 @@ Version 10-2-2017 1, 2, 3, 4 channels
 Version 10-2-2017 sampleA sampleB sampleABC sampleABCD to avoid mistakes
                   all unsigned int -> int
                   added stop()
+                  sizeof(int)
 
 start           ___|____________________________________|________
 
@@ -42,7 +43,7 @@ void Scope::start(byte _channels, int _preSamples, unsigned int _recordLenght)
   stopPtr=32767;
   samplingOn=1;
   channels = _channels;
-  recordLenght = maxBytes/(2*channels); // byte = 2 * int
+  recordLenght = maxBytes/(sizeof(int)*channels);
   if(_recordLenght <= recordLenght) recordLenght = _recordLenght;
   if(abs(_preSamples) <= recordLenght) preSamples = _preSamples; 
 }
