@@ -17,6 +17,7 @@ Version 10-2-2017 sampleA sampleB sampleABC sampleABCD to avoid mistakes
                   all unsigned int -> int
                   added stop()
                   sizeof(int)
+                  SerialUSB -> Serial (incl. <Albert.h>)
 
 start           ___|____________________________________|________
 
@@ -55,17 +56,17 @@ void Scope::stop()
 void Scope::show() 
 { unsigned long stop_us = micros(); // to avoid delay, start with this
   unsigned long usPerDiv = samples > 1 ? (stop_us - sample0_us)/(samples-1) : 0; 
-  while(!SerialUSB); // wait on Serial Monitor 
-  SerialUSB << "\nusPerDiv " << usPerDiv;
+  while(!Serial); // wait on Serial Monitor 
+  Serial << "\nusPerDiv " << usPerDiv;
   samplingOn=0;
-  SerialUSB << "\nptr value ";
+  Serial << "\nptr value ";
   ptr=stopPtr;
   do 
-  { if(channels==1) SerialUSB << endl << ptr, ringBuffer.chA[ptr]; 
-    if(channels==2) SerialUSB << endl << ptr, ringBuffer.chAB[ptr][0], ringBuffer.chAB[ptr][1]; 
-    if(channels==3) SerialUSB << endl << ptr, ringBuffer.chABC[ptr][0], ringBuffer.chABC[ptr][1], ringBuffer.chABC[ptr][2]; 
-    if(channels==4) SerialUSB << endl << ptr, ringBuffer.chABCD[ptr][0], ringBuffer.chABCD[ptr][1], ringBuffer.chABCD[ptr][2], ringBuffer.chABCD[ptr][3]; 
-    if(ptr==triggerPtr) SerialUSB << " trigger";
+  { if(channels==1) Serial << endl << ptr, ringBuffer.chA[ptr]; 
+    if(channels==2) Serial << endl << ptr, ringBuffer.chAB[ptr][0], ringBuffer.chAB[ptr][1]; 
+    if(channels==3) Serial << endl << ptr, ringBuffer.chABC[ptr][0], ringBuffer.chABC[ptr][1], ringBuffer.chABC[ptr][2]; 
+    if(channels==4) Serial << endl << ptr, ringBuffer.chABCD[ptr][0], ringBuffer.chABCD[ptr][1], ringBuffer.chABCD[ptr][2], ringBuffer.chABCD[ptr][3]; 
+    if(ptr==triggerPtr) Serial << " trigger";
     ptr = calcPtr(ptr+1);  
   } 
   while (ptr!=stopPtr);
