@@ -23,10 +23,10 @@ class Scope
 {
 public:
   void start(byte _channels, int _preSamples=0, unsigned int _recordLenght=65535);
-  void sampleA(int valueA);
-  void sampleAB(int valueA, int valueB);
-  void sampleABC(int valueA, int valueB, int valueC);
-  void sampleABCD(int valueA, int valueB, int valueC, int valueD);
+  void sampleA(short valueA);
+  void sampleAB(short valueA, short valueB);
+  void sampleABC(short valueA, short valueB, short valueC);
+  void sampleABCD(short valueA, short valueB, short valueC, short valueD);
   void trigger();
   void stop();
   void testBuffer();
@@ -36,10 +36,10 @@ protected:
   unsigned int calcPtr(int ptr);
   void show();
 
-  union{int chA[maxBytes/2]; 
-        int chAB[maxBytes/4][2]; 
-        int chABC[maxBytes/3][3]; 
-        int chABCD[maxBytes/8][4];} ringBuffer; 
+  union{short chA[maxBytes/2]; 
+        short chAB[maxBytes/4][2]; 
+        short chABC[maxBytes/3][3]; 
+        short chABCD[maxBytes/8][4];} ringBuffer; 
 
   unsigned long sample0_us;
   bool triggered, samplingOn; 

@@ -13,11 +13,8 @@ of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Publ
 Version 1-1-2016
 Version 14-1-2016 sample0_us
 Version 10-2-2017 1, 2, 3, 4 channels
-Version 10-2-2017 sampleA sampleB sampleABC sampleABCD to avoid mistakes
-                  all unsigned int -> int
-                  added stop()
-                  sizeof(int)
-                  SerialUSB -> Serial (incl. <Albert.h>)
+Version 10-2-2017 sampleA sampleB sampleABC sampleABCD to avoid mistakes, all unsigned int -> int, added stop(), sizeof(int)
+                  SerialUSB -> Serial (incl. <Albert.h>), short
 
 start           ___|____________________________________|________
 
@@ -44,7 +41,7 @@ void Scope::start(byte _channels, int _preSamples, unsigned int _recordLenght)
   stopPtr=32767;
   samplingOn=1;
   channels = _channels;
-  recordLenght = maxBytes/(sizeof(int)*channels);
+  recordLenght = maxBytes/(sizeof(short)*channels);
   if(_recordLenght <= recordLenght) recordLenght = _recordLenght;
   if(abs(_preSamples) <= recordLenght) preSamples = _preSamples; 
 }
@@ -73,14 +70,14 @@ void Scope::show()
   stopPtr = 32767;  
 }
 
-void Scope::sampleA(int valueA) // 1 channel
+void Scope::sampleA(short valueA) // 1 channel
 { if(samplingOn)
   { ringBuffer.chA[ptr] = valueA;
     sampleControl();
   }
 }
 
-void Scope::sampleAB(int valueA, int valueB) // 2 channels
+void Scope::sampleAB(short valueA, short valueB) // 2 channels
 { if(samplingOn)
   { ringBuffer.chAB[ptr][0] = valueA;
     ringBuffer.chAB[ptr][1] = valueB;
@@ -88,7 +85,7 @@ void Scope::sampleAB(int valueA, int valueB) // 2 channels
   }
 }
 
-void Scope::sampleABC(int valueA, int valueB, int valueC) // 3 channels
+void Scope::sampleABC(short valueA, short valueB, short valueC) // 3 channels
 { if(samplingOn)
   { ringBuffer.chABC[ptr][0] = valueA;
     ringBuffer.chABC[ptr][1] = valueB;
@@ -97,7 +94,7 @@ void Scope::sampleABC(int valueA, int valueB, int valueC) // 3 channels
   }
 }
 
-void Scope::sampleABCD(int valueA, int valueB, int valueC, int valueD) // 4 channels
+void Scope::sampleABCD(short valueA, short valueB, short valueC, short valueD) // 4 channels
 { if(samplingOn)
   { ringBuffer.chABCD[ptr][0] = valueA;
     ringBuffer.chABCD[ptr][1] = valueB;
