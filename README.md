@@ -1,3 +1,3 @@
 # avdweb_scope
 Debug oscilloscope library for the Arduino. See the website:
-http://www.avdweb.nl/arduino/libraries/oscilloscope-base-library-for-the-arduino.html
+http://www.avdweb.nl/arduino/libraries/oscilloscope.html
