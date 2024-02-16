@@ -1,9 +1,13 @@
 # Arduino Fast Oscilloscope
-The avdweb_Fast_Oscilloscope is a powerful tool to display and analyze real-time internal data signals inside or outside a microcontroller in a graphical way.
+## When should you use the Fast Oscilloscope library?
+When conventional debugging via the serial monitor isn't feasible.
 
-It is intended for debugging where the serial monitor is too slow.
+When the data is too fast for the serial monitor.
 
-No special hardware is required.
+When oscilloscope functionality is required.
+
+## Eliminating the disruption of the program by the serial monitor
+It is not always possible to debug Arduino programs by the serial monitor, as this disrupts the progress of the program. That's why I developed the Fast Oscilloscope, it has helped me with a lot with complex projects.
 
 See the website:
 http://www.avdweb.nl/arduino/libraries/oscilloscope.html
