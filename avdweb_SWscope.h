@@ -12,9 +12,9 @@ of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Publ
 #include <Arduino.h>
 
 #if defined(__arm__) 
-const unsigned int maxBytes = 7000; // SAMD21: max ~ 7000
+const unsigned int maxScopeBytes = 7000; // SAMD21: max ~ 7000
 #else
-const int maxBytes = 700; // AVR: max ~ 780
+const int maxScopeBytes = 100; // ATTENTION SET HERE, AVR ATmega328: max ~ 780 ATmega168: max ~ 320
 #endif
 
 class SWscope
@@ -36,10 +36,10 @@ public:
   void sampleControl();
   unsigned int calcPtr(int ptr);
 
-  union{short chA[maxBytes/2]; 
-        short chAB[maxBytes/4][2]; 
-        short chABC[maxBytes/3][3]; 
-        short chABCD[maxBytes/8][4];} ringBuffer; 
+  union{short chA[maxScopeBytes/2]; 
+        short chAB[maxScopeBytes/4][2]; 
+        short chABC[maxScopeBytes/3][3]; 
+        short chABCD[maxScopeBytes/8][4];} ringBuffer; 
 
   unsigned long sample0_us, usPerDiv;
   bool triggered, samplingOn; 
@@ -48,5 +48,3 @@ public:
 };
 
 #endif
-
-

@@ -44,7 +44,7 @@ void SWscope::start(byte _channels, int _preSamples, unsigned int _recordLenght)
   stopPtr=32767;
   samplingOn=1;
   channels = _channels;
-  recordLenght = maxBytes/(sizeof(short)*channels);
+  recordLenght = maxScopeBytes/(sizeof(short)*channels);
   if(_recordLenght <= recordLenght) recordLenght = _recordLenght;
   if(abs(_preSamples) <= recordLenght) preSamples = _preSamples; 
 }
@@ -138,8 +138,3 @@ void SWscope::testBuffer()
     probeA(i);
   }  
 }
-
-
-
-
-
