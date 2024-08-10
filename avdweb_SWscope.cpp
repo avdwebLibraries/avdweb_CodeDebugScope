@@ -40,7 +40,6 @@ canShow         ________________________|___________________________
 */
 
 #include "avdweb_SWscope.h"
-#include "Albert.h"
 #include <Streaming.h>
 
 void SWscope::start(byte _channels, int _preSamples,
