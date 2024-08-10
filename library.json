@@ -25,9 +25,10 @@
       "docs"
     ]
   },
-  "dependencies": [
-    "peterpolidoro/Streaming": "*"
-  ],
+  "dependencies": {
+    "peterpolidoro/Streaming": "*",
+    "PaulStoffregen/FrequencyTimer2": "*"
+  },
   "frameworks": "*",
   "platforms": "*",
   "examples": "examples/*/*/*.ino"
