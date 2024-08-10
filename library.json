@@ -25,7 +25,9 @@
       "docs"
     ]
   },
-  "dependencies": [],
+  "dependencies": [
+    "peterpolidoro/Streaming": "^6.1.1",
+  ],
   "frameworks": "*",
   "platforms": "*",
   "examples": "examples/*/*/*.ino"
