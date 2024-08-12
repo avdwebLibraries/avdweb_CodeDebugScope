@@ -1,45 +1,68 @@
-/*
-  LET OP: Serial.begin(115200) IN DE scope LIB
-
-  The library <Streaming.h> has to be installed too, download here:
-  http://arduiniana.org/libraries/streaming/ The library <avdweb.h> has to be
-  installed too, download here: nog doen
-
-  Copyright (C) 2016  Albert van Dalen http://www.avdweb.nl
-  This program is free software: you can redistribute it and/or modify it under
-  the terms of the GNU General Public License as published by the Free Software
-  Foundation, either version 3 of the License, or (at your option) any later
-  version. This program is distributed in the hope that it will be useful, but
-  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-  FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License at
-  http://www.gnu.org/licenses .
-
-  HISTORY:
-  1.0.0 1-1-2016
-  1.0.1 14-1-2016 sample0_us
-  1.0.2 10-2-2017 1, 2, 3, 4 channels
-  1.0.3 10-2-2017 probeA sampleB probeABC probeABCD to avoid mistakes, all
-  unsigned int -> int, added stop(), sizeof(int) SerialUSB -> Serial (incl.
-  <Albert.h>), short 1.0.4 10-3-2017 for ISR measurements do show() in loop()
-  1.0.5 28-1-2018 renamed sample to probe, Scope to SWscope
-
-  start           ___|____________________________________|________
-
-  probe           |_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_
-
-  trigger         ____________|________________________________________
-                             ___________________________
-  triggered       ____________|                           |___________
-
-  samples         0 0 1 2 3 . . .
-                                         ________
-  show            ________________________|        |______________
-                    ____________________                 ___________
-  samplingOn      ___|                    |_______________|
-
-  canShow         ________________________|___________________________
-
-*/
+/**
+ * CodeDebugScope.cpp
+ *
+ * CodeDebugScope - Arduino Fast Debug Oscilloscope Library.
+ * ===========================================================
+ *
+ * Sources
+ * -------
+ * https://github.com/avandalen/avdweb_CodeDebugScope
+ *
+ * License
+ * --------
+ * SPDX: GPL-3.0-or-later
+ *
+ *  CodeDebugScope - Arduino Fast Debug Oscilloscope Library.
+ *  Copyright (C) 2016-2024 Albert van Dalen <http://www.avdweb.nl>
+ *  Copyright (C) 2024 Abhijit Bose (aka. Boseji) :contributor:
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ * Notes
+ * -------
+ * LET OP: Serial.begin(115200) IN DE scope LIB
+ *
+ *  The library <Streaming.h> has to be installed too, download here:
+ *  <http://arduiniana.org/libraries/streaming/>
+ *
+ *
+ * HISTORY:
+ * 1.0.0 1-1-2016
+ * 1.0.1 14-1-2016 sample0_us
+ * 1.0.2 10-2-2017 1, 2, 3, 4 channels
+ * 1.0.3 10-2-2017 probeA sampleB probeABC probeABCD to avoid mistakes, all
+ * unsigned int -> int, added stop(), sizeof(int) SerialUSB -> Serial (incl.
+ * <Albert.h>), short 1.0.4 10-3-2017 for ISR measurements do show() in loop()
+ * 1.0.5 28-1-2018 renamed sample to probe, Scope to SWscope
+ *
+ * start           ___|____________________________________|________
+ *
+ * probe           |_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_
+ *
+ * trigger         ____________|________________________________________
+ *                              ___________________________
+ * triggered       ____________|                           |___________
+ *
+ * samples         0 0 1 2 3 . . .
+ *                                          ________
+ * show            ________________________|        |______________
+ *                     ____________________                 ___________
+ * samplingOn      ___|                    |_______________|
+ *
+ * canShow         ________________________|___________________________
+ *
+ */
 
 #include "CodeDebugScope.h"
 #include <Streaming.h>
