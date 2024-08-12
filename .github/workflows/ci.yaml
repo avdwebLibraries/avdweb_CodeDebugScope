@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - main
   pull_request:
 
 jobs:
@@ -11,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: ardlib/arduino-lint-action
+      - uses: arduino/arduino-lint-action
         with:
           library-manager: submit
           compliance: strict
