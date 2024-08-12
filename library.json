@@ -26,8 +26,7 @@
     ]
   },
   "dependencies": {
-    "peterpolidoro/Streaming": "*",
-    "PaulStoffregen/FrequencyTimer2": "*"
+    "peterpolidoro/Streaming": "*"
   },
   "frameworks": "*",
   "platforms": "*",

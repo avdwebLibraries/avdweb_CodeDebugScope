@@ -29,7 +29,7 @@ jobs:
         with:
           check: false
           style: file
-          extensions: cpp,h,hpp,c
+          extensions: cpp,h,hpp,c,ino
           clang-version: latest
 
       # commit the changes (if there are any)
