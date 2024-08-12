@@ -1,4 +1,4 @@
-# `avdweb_SWscope` - Arduino Fast Debug Oscilloscope
+# `avdweb_CodeDebugScope` - Arduino Fast Debug Oscilloscope
 ## When should you use the Fast Oscilloscope library?
 When conventional debugging via the serial monitor isn't feasible.
 
@@ -16,9 +16,10 @@ http://www.avdweb.nl/arduino/libraries/oscilloscope.html
 
 `SPDX: GPL-3.0-or-later`
 
-`avdweb_SWscope` - Arduino Fast Debug Oscilloscope.
+`CodeDebugScope` - Arduino Fast Debug Oscilloscope Library.
 
 Copyright (C) 2016-2024 Albert van Dalen <http://www.avdweb.nl>
+Copyright (C) 2024 Abhijit Bose (aka. Boseji)
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 

@@ -1,9 +1,8 @@
-# Arduino Fast Debug Oscilloscope Library
+# CodeDebugScope Library
 
 # Primary Header and Classes (KEYWORD1)
 SWscope	KEYWORD1
-avdweb_SWscope.h	KEYWORD1
-Bin	KEYWORD1
+CodeDebugScope.h	KEYWORD1
 
 # Instances, Methods and Functions (KEYWORD2)
 start	KEYWORD2

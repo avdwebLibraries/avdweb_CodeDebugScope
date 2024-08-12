@@ -1,5 +1,5 @@
 {
-  "name": "avdweb_SWscope",
+  "name": "CodeDebugScope",
   "version": "0.0.0",
   "description": "Arduino Fast Debug Oscilloscope Library",
   "keywords": "Debug, ADC, test",
@@ -16,7 +16,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/avandalen/avdweb_scope.git"
+    "url": "https://github.com/avandalen/avdweb_CodeDebugScope.git"
   },
   "homepage": "https://avdweb.nl/",
   "export": {

@@ -9,8 +9,8 @@ FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License at
 http://www.gnu.org/licenses .
 */
 
-#ifndef avdweb_SWscope_H
-#define avdweb_SWscope_H
+#ifndef CodeDebugScope_H
+#define CodeDebugScope_H
 
 #include <Arduino.h>
 
@@ -18,7 +18,9 @@ http://www.gnu.org/licenses .
 const unsigned int maxScopeBytes = 7000; // SAMD21: max ~ 7000
 #else
 const int maxScopeBytes =
-    100; // ATTENTION SET HERE, AVR ATmega328: max ~ 780 ATmega168: max ~ 320
+    500; // ATTENTION SET HERE, AVR ATmega328: max ~ 780 ATmega168: max ~ 320
+// const int maxScopeBytes = 100; // ATTENTION SET HERE, AVR ATmega328: max ~
+// 780 ATmega168: max ~ 320
 #endif
 
 class SWscope {
@@ -34,23 +36,23 @@ public:
   void showIfReady();
   void testBuffer();
 
-  bool canShow;
+  volatile bool canShow;
 
 protected:
   void sampleControl();
   unsigned int calcPtr(int ptr);
 
-  union {
+  volatile union {
     short chA[maxScopeBytes / 2];
     short chAB[maxScopeBytes / 4][2];
     short chABC[maxScopeBytes / 3][3];
     short chABCD[maxScopeBytes / 8][4];
   } ringBuffer;
 
-  unsigned long sample0_us, usPerDiv;
-  bool triggered, samplingOn;
-  byte channels; // 1, 2, 3, 4 channels
-  int recordLenght, preSamples, ptr, samples, triggerPtr, stopPtr;
+  volatile unsigned long sample0_us, usPerDiv;
+  volatile bool triggered, samplingOn;
+  volatile byte channels; // 1, 2, 3, 4 channels
+  volatile int recordLenght, preSamples, ptr, samples, triggerPtr, stopPtr;
 };
 
-#endif /* avdweb_SWscope_H */
+#endif
