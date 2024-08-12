@@ -1,4 +1,4 @@
-#include "avdweb_SWscope.h"
+#include "CodeDebugScope.h"
 #include <FrequencyTimer2.h> // mainISR https://github.com/PaulStoffregen/FrequencyTimer2
 
 // Attention: set in avdweb_SWscope.h: const int maxScopeBytes = 100; // or more

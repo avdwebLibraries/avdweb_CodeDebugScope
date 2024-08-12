@@ -1,4 +1,4 @@
-#include "avdweb_SWscope.h" // https://avdweb.nl/arduino/measurement/oscilloscope
+#include "CodeDebugScope.h" // https://avdweb.nl/arduino/measurement/oscilloscope
 
 // Attention: set in avdweb_SWscope.h: const int maxScopeBytes = 100; // or more
 // if possible
