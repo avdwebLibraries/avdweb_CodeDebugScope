@@ -44,6 +44,7 @@
 #include "CodeDebugScope.h"
 #include <Streaming.h>
 
+/*
 template <class T> // easy printing multiple variables with separator ','
                    // example: Serial << endl << a, b, c;
                    inline Print &operator,(Print &stream, const T arg) {
@@ -51,7 +52,7 @@ template <class T> // easy printing multiple variables with separator ','
   stream.print(arg);
   return stream;
 }
-
+*/
 void SWscope::start(byte _channels, int _preSamples,
                     unsigned int _recordLenght) {
   ptr = samples = triggerPtr = preSamples = triggered = 0;
