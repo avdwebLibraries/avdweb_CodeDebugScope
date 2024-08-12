@@ -41,7 +41,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    needs: lint, format
+    needs: [lint, format]
     steps:
       - uses: actions/setup-python@v4
         with:
