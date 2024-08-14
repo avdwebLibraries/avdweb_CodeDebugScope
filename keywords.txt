@@ -1,0 +1,26 @@
+# CodeDebugScope Library
+
+# Primary Header and Classes (KEYWORD1)
+SWscope	KEYWORD1
+CodeDebugScope.h	KEYWORD1
+
+# Instances, Methods and Functions (KEYWORD2)
+start	KEYWORD2
+probeA	KEYWORD2
+probeAB	KEYWORD2
+probeABC	KEYWORD2
+probeABCD	KEYWORD2
+trigger	KEYWORD2
+stop	KEYWORD2
+showIfReady	KEYWORD2
+testBuffer	KEYWORD2
+canShow	KEYWORD2
+
+# Structures, Pre-Processor and Other Functions (KEYWORD3)
+
+# Constants (LITERAL1)
+maxScopeBytes	LITERAL1
+
+# Other Parts (LITERAL2)
+
+

@@ -1,0 +1,34 @@
+{
+  "name": "CodeDebugScope",
+  "version": "0.0.0",
+  "description": "Arduino Fast Debug Oscilloscope Library",
+  "keywords": "Debug, ADC, test",
+  "authors": [
+    {
+    "name": "Albert van Dalen",
+    "url": "https://github.com/avandalen",
+    },
+    {
+    "name": "Abhijit Bose (aka. Boseji)",
+    "url": "https://github.com/boseji",
+    "maintainer": true
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/avandalen/avdweb_CodeDebugScope.git"
+  },
+  "homepage": "https://avdweb.nl/",
+  "export": {
+    "exclude": [
+      "extras",
+      "docs"
+    ]
+  },
+  "dependencies": {
+    "peterpolidoro/Streaming": "*"
+  },
+  "frameworks": "*",
+  "platforms": "*",
+  "examples": "examples/*/*/*.ino"
+}
