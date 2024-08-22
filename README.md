@@ -12,6 +12,14 @@ It is not always possible to debug Arduino programs by the serial monitor, as th
 See the website:
 http://www.avdweb.nl/arduino/libraries/oscilloscope.html
 
+## Developer Note
+
+Please run code formatting before committing the code.
+
+```sh
+clang-format -i src/*.* examples/**/*.ino
+```
+
 ## License
 
 `SPDX: GPL-3.0-or-later`
