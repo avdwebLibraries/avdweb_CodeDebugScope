@@ -38,42 +38,41 @@
 #if defined(__arm__)
 const unsigned int maxScopeBytes = 7000; // SAMD21: max ~ 7000
 #else
-const int maxScopeBytes =
-    500; // ATTENTION SET HERE, AVR ATmega328: max ~ 780 ATmega168: max ~ 320
+const int maxScopeBytes = 500; // ATTENTION SET HERE, AVR ATmega328: max ~ 780 ATmega168: max ~ 320
 // const int maxScopeBytes = 100; // ATTENTION SET HERE, AVR ATmega328: max ~
 // 780 ATmega168: max ~ 320
 #endif
 
 class SWscope {
 public:
-  void start(byte _channels, int _preSamples = 0,
-             unsigned int _recordLenght = 65535);
-  void probeA(short valueA);
-  void probeAB(short valueA, short valueB);
-  void probeABC(short valueA, short valueB, short valueC);
-  void probeABCD(short valueA, short valueB, short valueC, short valueD);
-  void trigger();
-  void stop();
-  void showIfReady();
-  void testBuffer();
+    void start(byte _channels, int _preSamples = 0,
+        unsigned int _recordLenght = 65535);
+    void probeA(short valueA);
+    void probeAB(short valueA, short valueB);
+    void probeABC(short valueA, short valueB, short valueC);
+    void probeABCD(short valueA, short valueB, short valueC, short valueD);
+    void trigger();
+    void stop();
+    void showIfReady();
+    void testBuffer();
 
-  volatile bool canShow;
+    volatile bool canShow;
 
 protected:
-  void sampleControl();
-  unsigned int calcPtr(int ptr);
+    void sampleControl();
+    unsigned int calcPtr(int ptr);
 
-  volatile union {
-    short chA[maxScopeBytes / 2];
-    short chAB[maxScopeBytes / 4][2];
-    short chABC[maxScopeBytes / 3][3];
-    short chABCD[maxScopeBytes / 8][4];
-  } ringBuffer;
+    volatile union {
+        short chA[maxScopeBytes / 2];
+        short chAB[maxScopeBytes / 4][2];
+        short chABC[maxScopeBytes / 3][3];
+        short chABCD[maxScopeBytes / 8][4];
+    } ringBuffer;
 
-  volatile unsigned long sample0_us, usPerDiv;
-  volatile bool triggered, samplingOn;
-  volatile byte channels; // 1, 2, 3, 4 channels
-  volatile int recordLenght, preSamples, ptr, samples, triggerPtr, stopPtr;
+    volatile unsigned long sample0_us, usPerDiv;
+    volatile bool triggered, samplingOn;
+    volatile byte channels; // 1, 2, 3, 4 channels
+    volatile int recordLenght, preSamples, ptr, samples, triggerPtr, stopPtr;
 };
 
 #endif

@@ -77,126 +77,136 @@ template <class T> // easy printing multiple variables with separator ','
 }
 */
 void SWscope::start(byte _channels, int _preSamples,
-                    unsigned int _recordLenght) {
-  ptr = samples = triggerPtr = preSamples = triggered = 0;
-  stopPtr = 32767;
-  samplingOn = 1;
-  channels = _channels;
-  recordLenght = maxScopeBytes / (sizeof(short) * channels);
-  if (_recordLenght <= recordLenght)
-    recordLenght = _recordLenght;
-  if (abs(_preSamples) <= recordLenght)
-    preSamples = _preSamples;
+    unsigned int _recordLenght)
+{
+    ptr = samples = triggerPtr = preSamples = triggered = 0;
+    stopPtr = 32767;
+    samplingOn = 1;
+    channels = _channels;
+    recordLenght = maxScopeBytes / (sizeof(short) * channels);
+    if (_recordLenght <= recordLenght)
+        recordLenght = _recordLenght;
+    if (abs(_preSamples) <= recordLenght)
+        preSamples = _preSamples;
 }
 
-void SWscope::showIfReady() {
-  if (!canShow)
-    return;
-  canShow = 0;
-  Serial.begin(115200); // HIER doen Serial part moet buiten de bibliotheek
-  // interrupts(); // hoeft niet
-  while (!Serial)
-    ; // wait on Serial Monitor
-  Serial << "\nusPerDiv: " << usPerDiv << "\nptr, values ";
-  ptr = stopPtr;
-  do {
-    if (channels == 1)
-      Serial << endl << ptr, ringBuffer.chA[ptr];
-    if (channels == 2)
-      Serial << endl << ptr, ringBuffer.chAB[ptr][0], ringBuffer.chAB[ptr][1];
-    if (channels == 3)
-      Serial << endl
-             << ptr,
-          ringBuffer.chABC[ptr][0], ringBuffer.chABC[ptr][1],
-          ringBuffer.chABC[ptr][2];
-    if (channels == 4)
-      Serial << endl
-             << ptr,
-          ringBuffer.chABCD[ptr][0], ringBuffer.chABCD[ptr][1],
-          ringBuffer.chABCD[ptr][2], ringBuffer.chABCD[ptr][3];
-    if (ptr == triggerPtr)
-      Serial << " trigger";
-    ptr = calcPtr(ptr + 1);
-  } while (ptr != stopPtr);
-  stopPtr = 32767;
+void SWscope::showIfReady()
+{
+    if (!canShow)
+        return;
+    canShow = 0;
+    Serial.begin(115200); // HIER doen Serial part moet buiten de bibliotheek
+    // interrupts(); // hoeft niet
+    while (!Serial)
+        ; // wait on Serial Monitor
+    Serial << "\nusPerDiv: " << usPerDiv << "\nptr, values ";
+    ptr = stopPtr;
+    do {
+        if (channels == 1)
+            Serial << endl
+                   << ptr,
+                ringBuffer.chA[ptr];
+        if (channels == 2)
+            Serial << endl
+                   << ptr,
+                ringBuffer.chAB[ptr][0], ringBuffer.chAB[ptr][1];
+        if (channels == 3)
+            Serial << endl
+                   << ptr,
+                ringBuffer.chABC[ptr][0], ringBuffer.chABC[ptr][1],
+                ringBuffer.chABC[ptr][2];
+        if (channels == 4)
+            Serial << endl
+                   << ptr,
+                ringBuffer.chABCD[ptr][0], ringBuffer.chABCD[ptr][1],
+                ringBuffer.chABCD[ptr][2], ringBuffer.chABCD[ptr][3];
+        if (ptr == triggerPtr)
+            Serial << " trigger";
+        ptr = calcPtr(ptr + 1);
+    } while (ptr != stopPtr);
+    stopPtr = 32767;
 }
 
 void SWscope::stop() { stopPtr = calcPtr(ptr + 1); }
 
 void SWscope::probeA(short valueA) // 1 channel
 {
-  if (samplingOn) {
-    ringBuffer.chA[ptr] = valueA;
-    sampleControl();
-  }
+    if (samplingOn) {
+        ringBuffer.chA[ptr] = valueA;
+        sampleControl();
+    }
 }
 
 void SWscope::probeAB(short valueA, short valueB) // 2 channels
 {
-  if (samplingOn) {
-    ringBuffer.chAB[ptr][0] = valueA;
-    ringBuffer.chAB[ptr][1] = valueB;
-    sampleControl();
-  }
+    if (samplingOn) {
+        ringBuffer.chAB[ptr][0] = valueA;
+        ringBuffer.chAB[ptr][1] = valueB;
+        sampleControl();
+    }
 }
 
 void SWscope::probeABC(short valueA, short valueB, short valueC) // 3 channels
 {
-  if (samplingOn) {
-    ringBuffer.chABC[ptr][0] = valueA;
-    ringBuffer.chABC[ptr][1] = valueB;
-    ringBuffer.chABC[ptr][2] = valueC;
-    sampleControl();
-  }
+    if (samplingOn) {
+        ringBuffer.chABC[ptr][0] = valueA;
+        ringBuffer.chABC[ptr][1] = valueB;
+        ringBuffer.chABC[ptr][2] = valueC;
+        sampleControl();
+    }
 }
 
 void SWscope::probeABCD(short valueA, short valueB, short valueC,
-                        short valueD) // 4 channels
+    short valueD) // 4 channels
 {
-  if (samplingOn) {
-    ringBuffer.chABCD[ptr][0] = valueA;
-    ringBuffer.chABCD[ptr][1] = valueB;
-    ringBuffer.chABCD[ptr][2] = valueC;
-    ringBuffer.chABCD[ptr][3] = valueD;
-    sampleControl();
-  }
+    if (samplingOn) {
+        ringBuffer.chABCD[ptr][0] = valueA;
+        ringBuffer.chABCD[ptr][1] = valueB;
+        ringBuffer.chABCD[ptr][2] = valueC;
+        ringBuffer.chABCD[ptr][3] = valueD;
+        sampleControl();
+    }
 }
 
-void SWscope::sampleControl() { // doen micros weggelaten if(samples == 0)
-                                // sample0_us = micros();
-  samples++;
-  ptr = calcPtr(ptr + 1);
-  if (ptr == stopPtr) {
-    samplingOn = 0;
-    canShow = 1;
-    unsigned long stop_us; // doen = micros(); // to avoid delay, start with
-                           // this
-    usPerDiv = samples > 1 ? (stop_us - sample0_us) / (samples - 1)
-                           : 0; // is not exact?
-  }
+void SWscope::sampleControl()
+{ // doen micros weggelaten if(samples == 0)
+  // sample0_us = micros();
+    samples++;
+    ptr = calcPtr(ptr + 1);
+    if (ptr == stopPtr) {
+        samplingOn = 0;
+        canShow = 1;
+        unsigned long stop_us; // doen = micros(); // to avoid delay, start with
+                               // this
+        usPerDiv = samples > 1 ? (stop_us - sample0_us) / (samples - 1)
+                               : 0; // is not exact?
+    }
 }
 
-unsigned int SWscope::calcPtr(int _ptr) {
-  if (_ptr >= recordLenght)
-    return (_ptr - recordLenght); // happens most frequent
-  if (_ptr < 0)
-    return (_ptr + recordLenght);
-  return _ptr;
+unsigned int SWscope::calcPtr(int _ptr)
+{
+    if (_ptr >= recordLenght)
+        return (_ptr - recordLenght); // happens most frequent
+    if (_ptr < 0)
+        return (_ptr + recordLenght);
+    return _ptr;
 }
 
-void SWscope::trigger() {
-  if (!triggered) {
-    triggerPtr = ptr;
-    stopPtr = calcPtr(triggerPtr - preSamples);
-    triggered = 1;
-  }
+void SWscope::trigger()
+{
+    if (!triggered) {
+        triggerPtr = ptr;
+        stopPtr = calcPtr(triggerPtr - preSamples);
+        triggered = 1;
+    }
 }
 
-void SWscope::testBuffer() {
-  start(1);
-  for (int i = 0; i < 25000; i++) {
-    if (i == 0)
-      trigger();
-    probeA(i);
-  }
+void SWscope::testBuffer()
+{
+    start(1);
+    for (int i = 0; i < 25000; i++) {
+        if (i == 0)
+            trigger();
+        probeA(i);
+    }
 }
